@@ -3,7 +3,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 
 arch = platform.machine()
-greeting = f"Hello, Snap! I'm {arch}\n"
+greeting = f"Hello, World! I'm {arch}\n"
 num_bytes = sys.getsizeof(greeting)
 
 
