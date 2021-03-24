@@ -2,9 +2,9 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: graviton-mixed-fleet
+  name: graviton-testing
   region: us-west-2
-
+  version: "1.19"
 nodeGroups:
   - name: graviton
     instanceType: t4g.medium

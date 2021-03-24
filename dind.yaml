@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: dind-arm
+spec:
+  replicas: 1
+  serviceName: docker-arm
+  selector:
+    matchLabels:
+      app: dind-arm
+  template:
+    metadata:
+      labels:
+        app: dind-arm
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: arm64
+      containers:
+      - name: dind
+        securityContext:
+          privileged: true
+        image: docker:19-dind
+        env:
+        - name: DOCKER_TLS_CERTDIR
+          value: '/certs'
+        - name: DOCKER_TLS_SAN
+          valueFrom:
+            configMapKeyRef:
+              name: docker-hostname
+              key: hostname
+        ports:
+        - name: docker
+          containerPort: 2376
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: docker-arm
+spec:
+  type: LoadBalancer
+  selector:
+    app: dind-arm
+  ports:
+  - name: docker
+    port: 2376
+    targetPort: docker
