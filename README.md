@@ -29,3 +29,8 @@ docker buildx build --builder remote --platform linux/amd64,linux/arm64 -t where
 https://github.com/containerd/containerd/issues/4837
 https://github.com/docker-library/docker/blob/094faa88f437cafef7aeb0cc36e75b59046cc4b9/20.10/dind/dockerd-entrypoint.sh#L18
 https://github.com/ansible/ansible/issues/35550#issuecomment-361963626
+
+#### Timings
+With "Cryptography" package:
+- Qemu (Docker has: 5 CPUs, 10GB RAM): 
+- Remote Graviton (amd64 still local): 5m37s
