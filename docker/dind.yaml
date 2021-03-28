@@ -19,10 +19,14 @@ spec:
       - name: dind
         securityContext:
           privileged: true
+        # See https://github.com/containerd/containerd/issues/4837
+        # for why we are pinning to version 19 here.
         image: docker:19-dind
         env:
         - name: DOCKER_TLS_CERTDIR
           value: '/certs'
+        # Setting DOCKER_TLS_SAN so that Docker will create certificates that will work with the Load Balancer's DNS name
+        # https://github.com/docker-library/docker/blob/094faa88f437cafef7aeb0cc36e75b59046cc4b9/20.10/dind/dockerd-entrypoint.sh#L18
         - name: DOCKER_TLS_SAN
           valueFrom:
             configMapKeyRef:
